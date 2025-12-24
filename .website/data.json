@@ -1,0 +1,32 @@
+{
+    "config": {
+    "baseUrl": "",
+        "welcomeTemplate": "docs/welcome-template.md",
+        "errorTemplate": "docs/error-template.md"
+},
+    "sections": [
+    {
+        "caption": "系统页面",
+        "items": [
+            { "title": "欢迎页", "mdPath": "docs/welcome-template.md", "idx": 0, "visible": false },
+            { "title": "报错页", "mdPath": "docs/error-template.md", "idx": -1, "visible": false }
+        ]
+    },
+    {
+        "caption": "使用指南",
+        "items": [
+            { "title": "华南农业大学介绍", "mdPath": "docs/scau.md" },
+            { "title": "用户手册", "mdPath": "docs/user_manual.md" },
+            { "title": "开发者手册", "mdPath": "docs/developer_manual.md" }
+        ]
+    },
+    {
+        "caption": "试卷作业",
+        "items": [
+            { "title": "Unix", "mdPath": "docs/unix.md" },
+            { "title": "Web开发", "mdPath": "docs/web.md" },
+            { "title": "草稿", "mdPath": "docs/draft.md", "visible": false }
+        ]
+    }
+]
+}

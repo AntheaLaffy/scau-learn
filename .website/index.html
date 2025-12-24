@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>华南农业大学学习资料库</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 使用本地的 markdown 解析器 -->
+    <script src="md.js"></script>
+</head>
+<body>
+
+<div class="layout">
+    <aside class="sidebar">
+        <h2 id="welcome-title">🏠华南农业大学学习资料库</h2>
+        <input id="search" placeholder="Search docs">
+        <nav id="menu"></nav>
+    </aside>
+
+    <main class="content" id="content">
+        <div id="loading">加载中...</div>
+    </main>
+</div>
+
+<div class="user-settings-panel">
+    <div class="setting-item" onclick="openModal('modal-account')">
+        <div class="setting-submenu" onclick="event.stopPropagation()">
+            <p style="margin:0; font-size: 12px; color: #999;">快速登录</p>
+            <input type="text" placeholder="学号/邮箱">
+            <button type="button">立即登录</button>
+        </div>
+        <span>个人账户中心</span>
+        <div class="icon">👤</div>
+    </div>
+
+    <div class="setting-item" onclick="openModal('modal-anim')">
+        <div class="setting-submenu" onclick="event.stopPropagation()">
+            <p style="margin:0; font-size: 12px; color: #999;">切换动画框架</p>
+            <div style="padding: 5px 0; cursor:pointer;" onclick="quickSetAnim(400, 0, 'fade')">🌫️ 默认淡入 (0.4s)</div>
+            <div style="padding: 5px 0; cursor:pointer;" onclick="quickSetAnim(200, 0, 'fade')">⚡ 极速淡入 (0.2s)</div>
+            <div style="padding: 5px 0; cursor:pointer;" onclick="quickSetAnim(400, 15, 'slide')">✨ 标准位移 (15px)</div>
+
+        </div>
+        <span>交互动画参数</span>
+        <div class="icon">✨</div>
+    </div>
+</div>
+
+<div id="settings-overlay" class="settings-modal" onclick="closeModal(event)">
+    <div id="modal-account" class="modal-content" onclick="event.stopPropagation()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <h3>👤 账户登录</h3>
+        <div class="control-group">
+            <label>学号 / Email</label>
+            <input type="text" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
+        </div>
+        <button class="btn-primary" style="width:100%; padding:12px; background:var(--link-color); color:white; border:none; border-radius:6px; cursor:pointer;">登录系统</button>
+    </div>
+
+    <div id="modal-anim" class="modal-content" onclick="event.stopPropagation()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <h3>✨ 动画详细参数</h3>
+        <div class="control-group">
+            <label>过渡时长 (ms)</label>
+            <input type="range" min="100" max="1000" value="400" id="anim-duration">
+            <div style="display:flex; justify-content:space-between; font-size:12px; color:#999;">
+                <span>100ms</span><span id="duration-val">400ms</span><span>1000ms</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label>出场位移距离 (px)</label>
+            <input type="range" min="0" max="100" value="15" id="anim-offset">
+            <div style="display:flex; justify-content:space-between; font-size:12px; color:#999;">
+                <span>0px</span><span id="offset-val">15px</span><span>100px</span>
+            </div>
+        </div>
+        <button onclick="closeModal()" style="width:100%; padding:10px; cursor:pointer; background:#eee; border:none; border-radius:6px;">完成设置</button>
+    </div>
+</div>
+<!-- 正确的加载顺序：先数据，后逻辑 -->
+<script src="main.js"></script>
+
+</body>
+</html>

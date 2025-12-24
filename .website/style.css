@@ -1,0 +1,362 @@
+:root {
+    --sidebar-bg: #343131;
+    --sidebar-hover: #4e4a4a;
+    --text-muted: #808080;
+    --link-color: #2980b9;
+    --font-main: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* 基础重置，保证 100% 高度可用 */
+* { box-sizing: border-box; }
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 顶层布局：两个独立滚动区域（sidebar 与 content） */
+/* overflow:hidden 防止 body 自身产生滚动条，两个子区域分别控制滚动 */
+.layout {
+    display: flex;
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+    background: #edf0f2;
+}
+
+/* 侧边栏：固定宽度、高度为视口高度，内部滚动 */
+.sidebar {
+    width: 300px;
+    background: var(--sidebar-bg);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+    overflow-y: auto;                 /* 启用侧边栏内部滚动 */
+    -webkit-overflow-scrolling: touch; /* iOS 平滑滚动 */
+}
+
+/* 侧边栏头部 */
+.sidebar h2 {
+    font-size: 1.1rem;
+    padding: 20px;
+    background: #2980b9;
+    margin: 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* 搜索框 */
+.sidebar input {
+    width: 90%;
+    margin: 15px 5%;
+    padding: 8px;
+    background: #4e4a4a;
+    border: 1px solid #666;
+    color: white;
+    border-radius: 20px;
+}
+
+/* 导航 */
+.menu-title {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.menu-list { list-style: none; margin: 0; padding: 0; }
+.menu-list li a {
+    display: block;
+    padding: 10px 25px;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #444;
+}
+
+.menu-list li a:hover {
+    background: var(--sidebar-hover);
+    color: white;
+}
+
+.menu-list li a.active {
+    background: var(--sidebar-hover);
+    color: white;
+    border-left: 3px solid var(--link-color);
+    padding-left: 22px;
+}
+
+/* 内容区：占据剩余宽度，高度为视口高度，开启独立滚动 */
+.content {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;                 /* 启用内容区内部滚动 */
+    -webkit-overflow-scrolling: touch; /* iOS 平滑滚动 */
+    background: white;
+    padding: 0px 180px 50px 50px;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.05);
+    opacity: 0; /* 初始隐藏 */
+    transition: opacity 0.4s ease, transform 0.4s ease; /* 关键：同时监听透明度和位移 */
+}
+
+/* 激活状态：通用 */
+.content.active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* 导航按钮样式 */
+.nav-btn {
+    padding: 12px 24px;
+    background-color: #2980b9; /* 蓝色 */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-btn:hover {
+    background-color: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+}
+/* 1. 淡入淡出模式 (默认) - 初始状态无位移 */
+.anim-mode-fade {
+    transform: translateY(0);
+}
+
+/* 2. 位移模式 - 初始状态有位移 */
+.anim-mode-slide {
+    /* 位移量由 JS 动态设置 */
+}
+
+/* 针对 Markdown 内部元素的间距优化 */
+.content h1, .content h2, .content h3 {
+    margin-top: 1.5em;    /* 增加标题上方的间距 */
+    margin-bottom: 0.8em; /* 标题与正文的间距 */
+    line-height: 1.3;
+}
+
+.content p {
+    line-height: 1.8;     /* 增加行高，显著提升阅读舒适度 */
+    margin-bottom: 1.2em; /* 段落之间的间距 */
+}
+
+.content ul, .content ol {
+    padding-left: 20px;   /* 列表缩进 */
+    margin-bottom: 1.2em;
+}
+.file-card {
+    border-left: 4px solid #2980b9;
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.file-card ul { list-style: none; padding-left: 10px; margin: 0; }
+.file-card li { margin: 8px 0; }
+.file-card a { color: var(--link-color); text-decoration: none; }
+.file-card a:hover { text-decoration: underline; }
+
+/* 添加加载动画 */
+.loading-spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #2980b9;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 确保警告框在侧栏右侧显示时位置正确（保留原逻辑的 left:300px） */
+@media (max-width: 720px) {
+    /* 小屏时把侧栏改为顶部滑出或其它行为（简单处理） */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        overflow: visible;
+    }
+    .layout { flex-direction: column; height: auto; }
+    .content { height: auto; overflow: visible; padding: 20px; }
+}
+#welcome-title {
+    cursor: pointer;
+    user-select: none; /* 防止频繁点击导致文字被选中蓝光 */
+    transition: opacity 0.2s;
+}
+
+#welcome-title:hover {
+    opacity: 0.8; /* 悬停反馈 */
+}
+
+/* 右侧个性化侧拉菜单 */
+.user-settings-panel {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+    z-index: 1000;
+}
+
+/* 每一个设置项的组合容器 */
+.setting-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* --- 修正右侧面板基础样式 --- */
+.setting-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    cursor: pointer;
+    color: #888;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* 保持外部文字不换行 */
+    padding: 8px 15px;
+}
+
+.setting-item:hover {
+    color: var(--link-color);
+    transform: translateX(-5px);
+    background: #fff;
+}
+
+/* 确保 hover 时显示 */
+.setting-item:hover .setting-submenu {
+    display: flex;
+    animation: fadeInRight 0.2s ease;
+}
+
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.setting-item .icon { font-size: 1.2rem; }
+.setting-item span { font-size: 0.9rem; font-weight: 500; }
+
+/* 修正二级菜单：紧贴图标并修复布局 */
+.setting-submenu {
+    position: absolute;
+    /* 核心修改：使用固定偏移量而非百分比，使其紧贴左侧 */
+    right: 90%;
+    top: 10px;    /* 稍微向上偏移，对齐图标中心 */
+    margin-right: 10px; /* 控制菜单与图标的间距 */
+
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 12px;
+    padding: 15px;
+    display: none; /* 默认隐藏 */
+    min-width: 180px;
+    z-index: 1001;
+
+    /* 修复之前提到的重叠问题 */
+    white-space: normal;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 优化二级菜单内的输入框和按钮 */
+.setting-submenu input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* 确保 padding 不撑开宽度 */
+}
+
+.setting-submenu button {
+    width: 100%;
+    padding: 8px;
+    background: var(--link-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s;
+}
+
+.setting-submenu button:hover {
+    background: #216a94;
+}
+.setting-submenu div:hover {
+    color: var(--link-color);
+    background: #f5f5f5;
+}
+
+
+/* --- 弹出的参数设置 UI 界面 --- */
+.settings-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* 朦胧遮罩 */
+    display: none; /* 默认隐藏 */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(4px); /* 高级感毛玻璃 */
+}
+
+.modal-content {
+    background: white;
+    width: 400px;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    position: relative;
+    animation: modalSlideUp 0.3s ease-out;
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ccc;
+}
+
+/* UI 内部控件样式 */
+.control-group { margin-bottom: 20px; }
+.control-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px; }
+.control-group input[type="range"] { width: 100%; cursor: pointer; }
+
