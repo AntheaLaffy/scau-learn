@@ -23,7 +23,7 @@
 >目前本学习基地还很简陋，也许未来会进行维护
 
 ## 试卷提交日志
-AntheaLaffy -> nicolesandwich@outlook.com
+AntheaLaffy -> nicolesandwich@outlook.com.com
 > unix, 2025 <-> 2025/12/18 留言：开卷考场写完后手抄的，请感谢我！
 
 ## 关于我

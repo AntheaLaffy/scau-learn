@@ -40,6 +40,6 @@
 ---
 
 <p style="text-align: center; color: #777; margin-top: 50px; font-size: 0.9rem;">
-    版权声明： 网站由如月风铃 "nicolesandwich@outlook" 独立完成<br>
+    版权声明： 网站由如月风铃 "nicolesandwich@outlook.com" 独立完成<br>
     一切学习资料均来源于华南农业大学公开资料，若有侵权请告知，立即删除
 </p>
