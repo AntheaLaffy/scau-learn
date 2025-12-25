@@ -25,6 +25,7 @@
         "items": [
             { "title": "Unix", "mdPath": "docs/unix.md" },
             { "title": "Web开发", "mdPath": "docs/web.md" },
+            { "title": "概率论与数理统计", "mdPath": "docs/probability&statistics.md", "visible": false },
             { "title": "草稿", "mdPath": "docs/draft.md", "visible": false }
         ]
     }
