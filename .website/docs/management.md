@@ -2,7 +2,7 @@
 
 # 课程介绍
 
-<img src="https://raw.githubusercontent.com/AntheaLaffy/SCAU-learn/main/Web开发/ISBN%20978-7-115-57754-2.png" width="300px" style="margin: 10px 0 10px 20px;">
+<img src="https://raw.githubusercontent.com/AntheaLaffy/SCAU-learn/main/%E7%AE%A1%E7%90%86%E5%AD%A6/ISBN%20978-7-04-045832-9.jpg" width="300px" style="margin: 10px 0 10px 20px;">
 
 ## 📄 试卷
 
